@@ -36,7 +36,11 @@ end
 
 end
 
-
+% function next = map(x,i)
+%     
+%      (x(i,:))' + 0.5*dt.*(lorenz_origin(0,x(i+1,:))+lorenz_origin(0,x(i,:)));
+% 
+% end
 
 % def action_grad(X):
 %    
