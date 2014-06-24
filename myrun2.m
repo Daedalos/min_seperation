@@ -17,8 +17,8 @@ options.MaxIter = 3000;
 M=3;    
 %load('simple_start.mat');
 NMin = 100;
-solution = 20.*rand(D*N,NMin)-10;
-for i=1:23
+solution = 20.*rand(NMin,D*N)-10;
+for i=0:23
     beta = 2^i;
     myfun = @(x) action(x, data, D, N, M, dt, beta);
     minima = zeros(NMin,1);
