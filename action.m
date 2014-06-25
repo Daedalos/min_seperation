@@ -29,7 +29,7 @@ for i = 1:(N-1)
 end
 
 if nargout > 1
-    grad1 = (x-y)*Rm;
+    grad1 = 0.5*(x-y)*Rm;
     grad2 = 0.*grad1;
     tmp = (x(2:end,:)) - map(x,dt);
     allDF = lorenz_DF(x);

@@ -12,7 +12,7 @@ function allDF = lorenz_DF(x)
 
    allDF = zeros(dim, dim, len);
    
-   for i = 1:dim
+   for i = 1:len
         allDF(:,:, i) = reshape(JJ(i,:), dim, dim)';
    end
 end
