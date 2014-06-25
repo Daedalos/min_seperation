@@ -1,8 +1,8 @@
 clear
 load('data.mat');
 D=5;
-N=160;
-M=2;
+N=20;
+M=5;
 dt=0.025;
 start=1000;
 beta = 1;
@@ -36,8 +36,8 @@ for i=0:23
         end
     end
     %save('start_solution.mat','solution')
-    sol_filename=sprintf('data/solution_D%d_B%d.dat',D,i);
-    min_filename=sprintf('data/minima_D%d_B%d.dat',D,i);
+    sol_filename=sprintf('data/solution_N%d_D%d_B%d.dat',N,D,i);
+    min_filename=sprintf('data/minima_N%d_D%d_B%d.dat',N,D,i);
     dlmwrite(sol_filename,solution,'delimiter',' ','precision','%e');
     dlmwrite(min_filename,minima,'delimiter',' ','precision','%e');
 end
