@@ -13,34 +13,40 @@ for i = 1:M
 end
 
 cost = 0;%sum((x-y)*Rm*(x-y)');
+% Uri
+tmp = x-y;
 for i = 1:N
-    tmp = x(i,:) - y(i,:);
-    cost = cost + tmp*Rm*tmp';
+    %    tmp = x(i,:) - y(i,:);
+    cost = cost + tmp(i,:)*Rm*tmp(i,:)';
 end
 
+%%% Uri
+tmp = x(2:end,:) - map(x,dt);
+
 for i = 1:(N-1)
-    tmp = (x(i+1,:))' - (x(i,:))' - 0.5*dt.*(lorenz_origin(0,x(i+1,:))+lorenz_origin(0,x(i,:)));
-    cost = cost + tmp'*Rf*tmp;
+%    tmp = (x(i+1,:))' - (x(i,:))' - 0.5*dt.*(lorenz_origin(0,x(i+1,:))+lorenz_origin(0,x(i,:)));
+    cost = cost + tmp(i,:)*Rf*tmp(i,:)';
 end
 
 if nargout > 1
     grad1 = (x-y)*Rm;
     grad2 = 0.*grad1;
-    for i=1:(N-1)
-        tmp = (x(i+1,:))' - (x(i,:))' - 0.5*dt.*(lorenz_origin(0,x(i+1,:))+lorenz_origin(0,x(i,:)));
-        grad2(i,:) = grad2(i,:)+(Rf*tmp)'*(-eye(D)-0.5*dt.*lorenz_DF(x(i,:)));
-        grad2(i+1,:) = grad2(i+1,:)+(Rf*tmp)'*(eye(D)-0.5*dt.*lorenz_DF(x(i+1,:)));
+    tmp = (x(2:end,:)) - map(x,dt);
+    allDF = lorenz_DF(x);
+    for i=1:(N-1)        
+        grad2(i,:) = (Rf*tmp(i,:)')'*(-eye(D)-0.5*dt.*allDF(:,:,i));
+        grad2(i+1,:) = grad2(i+1,:) + (Rf*tmp(i,:)')'*(eye(D)-0.5*dt.*allDF(:,:,i+1));
     end
     g = reshape(grad1+grad2,N*D,1); 
 end
 
 end
 
-% function next = map(x,i)
-%     
-%      (x(i,:))' + 0.5*dt.*(lorenz_origin(0,x(i+1,:))+lorenz_origin(0,x(i,:)));
-% 
-% end
+function next = map(x,dt)
+    
+     next = (x(1:end-1,:)) + 0.5*dt.*(lorenz_origin(0,x(2:end,:))+lorenz_origin(0,x(1:end-1,:)));
+
+end
 
 % def action_grad(X):
 %    
