@@ -2,7 +2,7 @@ clear
 load('data.mat');
 D=5;
 N=160;
-M=4;
+M=2;
 dt=0.025;
 start=1000;
 beta = 1;
@@ -16,7 +16,7 @@ options.MaxIter = 3000;
 %beta_set = 2.^(1:29);
 
 %load('simple_start.mat');
-NMin = 3;
+NMin = 5;
 solution = 20.*rand(NMin,D*N)-10;
 for i=0:23
     beta = 2^i;
