@@ -34,7 +34,7 @@ if nargout > 1
     tmp = (x(2:end,:)) - map(x,dt);
     allDF = lorenz_DF(x);
     for i=1:(N-1)        
-        grad2(i,:) = (Rf*tmp(i,:)')'*(-eye(D)-0.5*dt.*allDF(:,:,i));
+        grad2(i,:) = grad2(i,:) + (Rf*tmp(i,:)')'*(-eye(D)-0.5*dt.*allDF(:,:,i));
         grad2(i+1,:) = grad2(i+1,:) + (Rf*tmp(i,:)')'*(eye(D)-0.5*dt.*allDF(:,:,i+1));
     end
     g = reshape(grad1+grad2,N*D,1); 
